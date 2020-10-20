@@ -33,14 +33,14 @@ db_drop_and_create_all()
 
 @app_route('/drinks', methods=['GET'])
 def get_drink():
-    drinks = Drink.query.order.all()
+    drinks = Drink.query.all()
     format_drinks = (drink.short() for drink in drinks)
     if len(drinks) == 0:
-        abort(404)
+        return jsonify({"drinks": []})
 
     return jsonify({
       'success': True,
-      'drinks': drinks
+      'drinks': format_drinks
     }), 200
 
 
@@ -227,12 +227,12 @@ app.register_error_handler(404, not_found)
 '''
 
 
-@app.errorhandler(401)
+@app.errorhandler(AuthError)
 def Auth_error(error):
     return jsonify({
                 "success": False, 
                 "error": 401,
-                "message": "resource not found"
+                "message": error.__dict__
                 }), 401
 
 # return app
