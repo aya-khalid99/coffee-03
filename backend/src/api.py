@@ -55,7 +55,7 @@ def get_drink():
 '''
 
 
-@app_route('/drinks-detail', methodS=['GET'])
+@app_route('/drinks-detail', methods=['GET'])
 @requires_auth('get:drinks-detail')
 def drinks_detail(payload):
     drinks = Drink.query.order.all()
@@ -154,7 +154,7 @@ def update_drinks(payload, drink_id):
 '''
 
 
-@app_route('/drinks/<int:drink_id>', merthods=['DELETE'])
+@app_route('/drinks/<int:drink_id>', methods=['DELETE'])
 @requires_auth('delete:drinks')
 def delete_drinks(payload, drink_id):
     try:
